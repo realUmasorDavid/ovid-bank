@@ -238,10 +238,13 @@
             </div>
 
             <!-- Continue Button -->
-            <button type="button" id="verifyBtn"
-                class="w-full bg-gray-300 text-gray-500 py-3 rounded-full font-medium cursor-not-allowed mb-4" disabled>
-                Continue
-            </button>
+            <a href="#" id="continueLink" class="pointer-events-none">
+                <button type="button" id="verifyBtn"
+                    class="w-full bg-gray-300 text-gray-500 py-3 rounded-full font-medium cursor-not-allowed mb-4"
+                    disabled>
+                    Continue
+                </button>
+            </a>
 
             <div class="text-center text-sm text-gray-600 mb-4">
                 Didn't receive a code?
@@ -329,14 +332,20 @@
 
         function checkComplete() {
             const complete = Array.from(inputs).every(inp => inp.value.length === 1);
+            const continueLink = document.getElementById('continueLink');
+
             if (complete) {
                 verifyBtn.disabled = false;
                 verifyBtn.classList.remove('bg-gray-300', 'text-gray-500', 'cursor-not-allowed');
                 verifyBtn.classList.add('bg-wfRed', 'text-white', 'hover:bg-red-700', 'cursor-pointer');
+                continueLink.classList.remove('pointer-events-none');
+                continueLink.href = "{% url 'dashboard' %}";
             } else {
                 verifyBtn.disabled = true;
                 verifyBtn.classList.add('bg-gray-300', 'text-gray-500', 'cursor-not-allowed');
                 verifyBtn.classList.remove('bg-wfRed', 'text-white', 'hover:bg-red-700', 'cursor-pointer');
+                continueLink.classList.add('pointer-events-none');
+                continueLink.href = "#";
             }
         }
 
