@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Summary - Wells Fargo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        wfRed: '#d71e28',
+                        wfPurple: '#5a469b',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: #f9f7f6;
+        }
+
+        /* Slide-in menu */
+        .menu-overlay {
+            transition: opacity 0.3s ease;
+        }
+
+        .slide-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .slide-menu.open {
+            transform: translateX(0);
+        }
+
+        .slide-menu.closed {
+            transform: translateX(100%);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-[#d71e28] text-white relative z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="#" class="text-2xl text-white font-bold tracking-wide flex-shrink-0">
+                    <svg width="148px" height="16px" fill="currentColor" viewBox="0 0 148 16" aria-hidden="true"
+                        role="img" focusable="false">
+                        <g>
+                            <path d="
+                                      M31.5783,10.22 L33.0183,10.22 L33.0183,15 L20.9983,15 L20.9983,13.26 L22.6983,13.26 L22.6983,2.74 L19.94,2.74 L16.44,15 L13.66,15 L10.82,4.84
+                                      L7.9,15 L5.12,15 L1.6,2.74 L0,2.74 L0,1 L6.52,1 L6.52,2.74 L4.64,2.74 L6.98,11.18 L9.78,1 L12.66,1 L15.52,11.2 L17.82,2.74 L15.86,2.74 L15.86,1
+                                      L32.8185,1 L32.8185,5.54 L31.3785,5.54 L31.2385,5 C30.7985,3.32 30.3385,2.74 28.9985,2.74 L25.6785,2.74 L25.6785,6.96 L29.6985,6.96 C29.8509872,7.25655731
+                                      29.9266299,7.5866346 29.9185,7.92 C29.9289227,8.26639109 29.8533362,8.60996586 29.6985,8.92 L25.6785,8.92 L25.6785,13.26 L29.1385,13.26 C30.4385,13.26
+                                      31.0185,12.7 31.4185,10.92 L31.5783,10.22 Z M44.2172,10.92 C43.8172,12.7 43.2572,13.26 41.9372,13.26 L39.1572,13.26 L39.1572,2.74 L41.0572,2.74 L41.0572,1
+                                      L34.4772,1 L34.4772,2.74 L36.1772,2.74 L36.1772,13.26 L34.4772,13.26 L34.4772,15 L45.8172,15 L45.8172,10.22 L44.3772,10.22 L44.2172,10.92 Z M56.8161,10.92
+                                      C56.4161,12.7 55.8561,13.26 54.5361,13.26 L51.7561,13.26 L51.7561,2.74 L53.6561,2.74 L53.6561,1 L47.0761,1 L47.0761,2.74 L48.7761,2.74 L48.7761,13.26 L47.0761,13.26
+                                      L47.0761,15 L58.4161,15 L58.4161,10.22 L56.9761,10.22 L56.8161,10.92 Z M67.3548,6.8 L64.8148,6.22 C63.3348,5.88 62.7148,5.3 62.7148,4.32 C62.7148,3.14 63.6548,2.4
+                                      65.4948,2.4 C67.3348,2.4 68.4148,3.06 68.8348,4.62 L69.0148,5.3 L70.4548,5.3 L70.4548,1.84 C68.8830796,1.03158224 67.1423274,0.606665867 65.3749,0.6 C61.9549,0.6
+                                      59.7549,2.24 59.7549,4.88 C59.7549,6.92 61.0349,8.42 63.4949,8.96 L66.0349,9.52 C67.6549,9.88 68.2549,10.52 68.2549,11.58 C68.2549,12.88 67.2749,13.6 65.3149,13.6
+                                      C63.0949,13.6 61.9549,12.72 61.4549,11.04 L61.1949,10.18 L59.7549,10.18 L59.7549,14.1 C61.5849502,15.0113218 63.6113126,15.4578084 65.6549,15.4 C69.0149,15.4 71.2149,13.72
+                                      71.2149,11.1 C71.2148,8.9 69.8747,7.38 67.3548,6.8 Z M86.6329,2.74 C87.9729,2.74 88.4329,3.32 88.8729,5 L89.0129,5.54 L90.4529,5.54 L90.4529,1 L78.3929,1 L78.3929,2.74 L80.0929,
+                                      2.74 L80.0929,13.26 L78.3929,13.26 L78.3929,15 L85.0729,15 L85.0729,13.26 L83.0729,13.26 L83.0729,9.18 L87.1929,9.18 C87.3477086,8.86995608 87.4232935,8.52638836
+                                      87.4129,8.18 C87.4210727,7.84663029 87.3454276,7.51654256 87.1929,7.22 L83.0729,7.22 L83.0729,2.74 L86.6329,2.74 Z M117.1107,13.42 C117.350603,13.9403466
+                                      117.350603,14.5396534 117.1107,15.06 C116.593408,15.1270209 116.072315,15.1604243 115.5507,15.16 C113.6107,15.16 112.6707,14.36 112.4507,12.5 L112.3707,11.8 C112.1307,9.78
+                                      111.4707,9 109.2707,9 L108.1707,9 L108.1707,13.26 L110.0707,13.26 L110.0707,15 L97.4921,15 L97.4921,13.26 L99.1321,13.26 L98.2121,10.76 L93.0121,10.76 L92.0921,13.26 L93.7721,
+                                      13.26 L93.7721,15 L88.4721,15 L88.4721,13.26 L89.8721,13.26 L94.772,1 L97.432,1 L102.432,13.26 L105.1907,13.26 L105.1907,2.74 L103.4907,2.74 L103.4907,1 L111.5307,1 C114.3907,
+                                      1 116.2507,2.42 116.2507,4.7 C116.236826,5.65544044 115.842919,6.56599554 115.156084,7.23031176 C114.469248,7.89462798 113.546072,8.25797324 112.5907,8.24 L112.5907,
+                                      8.3 C113.320265,8.29049748 114.022729,8.57612277 114.538653,9.09204674 C115.054577,9.60797071 115.340203,10.3104352 115.3307,11.04 L115.4107,11.78 C115.5307,12.94 115.7707,
+                                      13.46 116.6907,13.46 C116.831581,13.4586084 116.972089,13.4452267 117.1107,13.42 Z M97.5719,9.06 L95.6119,3.76 L93.6519,9.06 L97.5719,9.06 Z M113.2307,4.98 C113.2307,
+                                      3.52 112.3307,2.74 110.5307,2.74 L108.1707,2.74 L108.1707,7.24 L110.5307,7.24 C112.3108,7.24 113.2307,6.42 113.2307,4.98 Z M125.1745,8.62 C125.161819,8.96019815 125.237622,
+                                      9.29786628 125.3945,9.6 L127.7745,9.6 L127.7745,13.14 C127.025969,13.4478108 126.223838,13.6041585 125.4145,13.6 C122.5345,13.6 121.0345,11.54 121.0345,7.98 C121.0345,
+                                      4.42 122.5345,2.36 125.2545,2.36 C126.847915,2.27805546 128.291943,3.29300049 128.7545,4.82 L128.9745,5.38 L130.4145,5.38 L130.4145,1.8 C128.769872,0.975783763 126.954079,
+                                      0.550956677 125.1145,0.56 C120.7145,0.56 117.7545,3.5 117.7545,8 C117.7545,12.52 120.6345,15.4 125.1145,15.4 C127.070757,15.3481445 128.988059,14.8414289 130.7145,
+                                      13.92 L130.7145,7.68 L125.3945,7.68 C125.23997,7.96860667 125.164097,8.29279214 125.1745,8.62 Z M147.4382,7.98 C147.4382,12.0889985 144.107199,15.42 139.9982,15.42 C135.889201,
+                                      15.42 132.5582,12.0889985 132.5582,7.98 C132.5582,3.87100146 135.889201,0.54 139.9982,0.54 C144.107199,0.54 147.4382,3.87100146 147.4382,7.98 Z M144.1582,7.98 C144.1582,
+                                      4.44 142.6982,2.38 139.9982,2.38 C137.2982,2.38 135.8382,4.44 135.8382,7.98 C135.8382,11.54 137.2782,13.58 139.9982,13.58 C142.7182,13.58 144.1582,11.54 144.1582,7.98 Z
+                                    "></path>
+                        </g>
+                    </svg>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center gap-6 text-sm">
+                    <a href="#" class="hover:underline">Sign Off</a>
+                    <a href="#" class="hover:underline">Customer Service</a>
+                    <a href="#" class="hover:underline">ATMs/Locations</a>
+                    <button type="button"
+                        class="bg-white text-gray-800 px-4 py-1.5 rounded-full flex items-center gap-2 text-sm font-medium hover:bg-gray-100">
+                        Search
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </button>
+                </nav>
+
+                <!-- Hamburger Button -->
+                <button id="menuToggle" class="lg:hidden p-2 rounded-md hover:bg-red-700 focus:outline-none"
+                    aria-label="Open menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Overlay + Slide Menu -->
+    <div id="menuOverlay"
+        class="menu-overlay fixed inset-0 bg-black/40 z-40 opacity-0 pointer-events-none transition-opacity duration-300">
+    </div>
+
+    <aside id="slideMenu"
+        class="slide-menu closed fixed top-0 right-0 h-full w-72 sm:w-80 bg-[#d71e28] text-white z-50 shadow-2xl p-6 flex flex-col">
+        <div class="flex justify-between items-center mb-8">
+            <span class="text-lg font-semibold">Menu</span>
+            <button id="menuClose" class="p-2 rounded-md hover:bg-red-700" aria-label="Close menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <nav class="flex flex-col gap-1 text-base">
+            <a href="#" class="px-3 py-3 rounded-lg hover:bg-red-700/80 transition">Sign Off</a>
+            <a href="#" class="px-3 py-3 rounded-lg hover:bg-red-700/80 transition">Customer Service</a>
+            <a href="#" class="px-3 py-3 rounded-lg hover:bg-red-700/80 transition">ATMs/Locations</a>
+            <div class="pt-4">
+                <button type="button"
+                    class="w-full bg-white text-gray-800 px-4 py-2.5 rounded-full flex items-center justify-center gap-2 text-sm font-medium hover:bg-gray-100">
+                    Search
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Secondary Nav -->
+    <div class="bg-white border-b border-gray-200 overflow-x-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex gap-6 sm:gap-8 text-sm py-3 min-w-max">
+                <a href="#"
+                    class="text-wfPurple font-medium border-b-2 border-wfPurple pb-1 whitespace-nowrap">Accounts</a>
+                <a href="#" class="text-gray-700 hover:text-wfPurple whitespace-nowrap">Transfer & Pay</a>
+                <a href="#" class="text-gray-700 hover:text-wfPurple whitespace-nowrap">Investing</a>
+                <a href="#" class="text-gray-700 hover:text-wfPurple whitespace-nowrap">Services</a>
+                <a href="#" class="text-gray-700 hover:text-wfPurple whitespace-nowrap">Profile</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Greeting -->
+        <div class="mb-8">
+            <h1 class="text-2xl sm:text-3xl font-normal text-gray-900">Good afternoon, Willinghams Inc</h1>
+            <p class="text-gray-500 text-sm mt-1">Last sign on: Today at 2:14 PM</p>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+            <button class="bg-white border border-gray-200 rounded-xl p-4 text-center hover:shadow-md transition">
+                <div class="w-10 h-10 mx-auto mb-2 rounded-full bg-red-50 flex items-center justify-center text-wfRed">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                    </svg>
+                </div>
+                <span class="text-sm font-medium text-gray-800">Transfer</span>
+            </button>
+            <button class="bg-white border border-gray-200 rounded-xl p-4 text-center hover:shadow-md transition">
+                <div
+                    class="w-10 h-10 mx-auto mb-2 rounded-full bg-purple-50 flex items-center justify-center text-wfPurple">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                </div>
+                <span class="text-sm font-medium text-gray-800">Pay Bills</span>
+            </button>
+            <button class="bg-white border border-gray-200 rounded-xl p-4 text-center hover:shadow-md transition">
+                <div
+                    class="w-10 h-10 mx-auto mb-2 rounded-full bg-green-50 flex items-center justify-center text-green-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <span class="text-sm font-medium text-gray-800">Deposit</span>
+            </button>
+            <button class="bg-white border border-gray-200 rounded-xl p-4 text-center hover:shadow-md transition">
+                <div
+                    class="w-10 h-10 mx-auto mb-2 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                    </svg>
+                </div>
+                <span class="text-sm font-medium text-gray-800">Alerts</span>
+            </button>
+        </div>
+
+        <!-- Accounts -->
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Accounts List -->
+            <div class="lg:col-span-2 space-y-4">
+                <h2 class="text-lg font-semibold text-gray-900">Accounts</h2>
+
+                <!-- Checking -->
+                <div class="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition cursor-pointer">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+                        <div>
+                            <p class="font-medium text-gray-900">Everyday Checking</p>
+                            <p class="text-sm text-gray-500">•••• 4821</p>
+                        </div>
+                        <div class="text-left sm:text-right">
+                            <p class="text-xl font-semibold text-gray-900">$3,540,287.63</p>
+                            <p class="text-sm text-gray-500">Available</p>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-gray-100 flex justify-between text-sm text-gray-600">
+                        <span>Current balance</span>
+                        <span>$3,540,512.18</span>
+                    </div>
+                </div>
+
+                <!-- Savings -->
+                <div class="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition cursor-pointer">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+                        <div>
+                            <p class="font-medium text-gray-900">Way2Save® Savings</p>
+                            <p class="text-sm text-gray-500">•••• 7392</p>
+                        </div>
+                        <div class="text-left sm:text-right">
+                            <p class="text-xl font-semibold text-gray-900">$12,840.27</p>
+                            <p class="text-sm text-gray-500">Available</p>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-gray-100 flex justify-between text-sm text-gray-600">
+                        <span>Current balance</span>
+                        <span>$12,840.27</span>
+                    </div>
+                </div>
+
+                <!-- Credit Card -->
+                <div class="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition cursor-pointer">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+                        <div>
+                            <p class="font-medium text-gray-900">Active Cash® Visa® Card</p>
+                            <p class="text-sm text-gray-500">•••• 5519</p>
+                        </div>
+                        <div class="text-left sm:text-right">
+                            <p class="text-xl font-semibold text-gray-900">$1,284.50</p>
+                            <p class="text-sm text-gray-500">Current balance</p>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-gray-100 flex justify-between text-sm text-gray-600">
+                        <span>Available credit</span>
+                        <span class="text-green-600">$3,715.50</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div>
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h2>
+                <div class="bg-white rounded-xl border border-gray-200 divide-y divide-gray-100">
+                    <div class="p-4 flex justify-between items-center">
+                        <div>
+                            <p class="text-sm font-medium text-gray-900">Whole Foods Market</p>
+                            <p class="text-xs text-gray-500">Today · Everyday Checking</p>
+                        </div>
+                        <span class="text-sm font-medium text-red-600">-$84.27</span>
+                    </div>
+                    <div class="p-4 flex justify-between items-center">
+                        <div>
+                            <p class="text-sm font-medium text-gray-900">Direct Deposit</p>
+                            <p class="text-xs text-gray-500">Yesterday · Everyday Checking</p>
+                        </div>
+                        <span class="text-sm font-medium text-green-600">+$2,450.00</span>
+                    </div>
+                    <div class="p-4 flex justify-between items-center">
+                        <div>
+                            <p class="text-sm font-medium text-gray-900">Amazon.com</p>
+                            <p class="text-xs text-gray-500">Nov 14 · Active Cash Card</p>
+                        </div>
+                        <span class="text-sm font-medium text-red-600">-$62.19</span>
+                    </div>
+                    <div class="p-4 flex justify-between items-center">
+                        <div>
+                            <p class="text-sm font-medium text-gray-900">Starbucks</p>
+                            <p class="text-xs text-gray-500">Nov 13 · Everyday Checking</p>
+                        </div>
+                        <span class="text-sm font-medium text-red-600">-$6.45</span>
+                    </div>
+                    <div class="p-4 flex justify-between items-center">
+                        <div>
+                            <p class="text-sm font-medium text-gray-900">Transfer to Savings</p>
+                            <p class="text-xs text-gray-500">Nov 12 · Everyday Checking</p>
+                        </div>
+                        <span class="text-sm font-medium text-red-600">-$200.00</span>
+                    </div>
+                </div>
+                <a href="#" class="block text-center text-sm text-wfPurple font-medium mt-3 hover:underline">View all
+                    activity</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-xs text-gray-500 text-center space-y-2">
+            <div class="flex flex-wrap justify-center gap-x-4 gap-y-1">
+                <a href="#" class="hover:underline">About Wells Fargo</a>
+                <span>|</span>
+                <a href="#" class="hover:underline">Privacy, Cookies, Security & Legal</a>
+                <span>|</span>
+                <a href="#" class="hover:underline">Online Access Agreement</a>
+            </div>
+            <p>© 1999 - 2026 Wells Fargo. All rights reserved. NMLSR ID 399801</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const menuClose = document.getElementById('menuClose');
+        const slideMenu = document.getElementById('slideMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        function openMenu() {
+            slideMenu.classList.remove('closed');
+            slideMenu.classList.add('open');
+            menuOverlay.classList.remove('opacity-0', 'pointer-events-none');
+            menuOverlay.classList.add('opacity-100');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+            slideMenu.classList.remove('open');
+            slideMenu.classList.add('closed');
+            menuOverlay.classList.add('opacity-0', 'pointer-events-none');
+            menuOverlay.classList.remove('opacity-100');
+            document.body.style.overflow = '';
+        }
+
+        menuToggle.addEventListener('click', openMenu);
+        menuClose.addEventListener('click', closeMenu);
+        menuOverlay.addEventListener('click', closeMenu);
+    </script>
+</body>
+
+</html>
